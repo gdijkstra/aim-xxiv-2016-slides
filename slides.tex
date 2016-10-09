@@ -19,6 +19,150 @@
 \maketitle
 \end{frame}
 
+\begin{frame}
+  \begin{itemize}
+  \item My goal three years ago: give a definition/theory of higher inductive types
+  \item Do this in type theory
+  \item Coherence issues are difficult
+  \item ``Solve'' coherence by restricting to \emph{sets} (types that satisfy uniqueness of identity proofs)
+  \end{itemize}
+\end{frame}
 
+\begin{frame}{Quotient inductive types -- interval type}
+
+  \begin{align*}
+    &\data\ \intty : \Set\ \where \\
+    &\ \ \ \ \intzero : \intty \\
+    &\ \ \ \ \intone : \intty \\
+    &\ \ \ \ \intseg : \intzero = \intone 
+  \end{align*}
+  
+\end{frame}
+
+\begin{frame}{Quotient inductive types -- tree}
+
+  \begin{align*}
+    &\data\ \treety : \Set\ \where \\
+    &\ \ \ \ \treeleaf : \treety \\
+    &\ \ \ \ \treenode : (\natty \to \treety) \to \treety \\
+    &\ \ \ \ \treeperm : (f : \natty \to \treety)\ (\phi : \natty \to \natty) \\
+    &\ \ \ \ \ \ \ \ \to \isequiv\ \phi \to \treenode\ f = \treenode\ (f \circ \phi)
+  \end{align*}
+\end{frame}
+
+\begin{frame}{Quotient inductive types}
+  The characteristics of quotient inductive types are:
+
+  \begin{itemize}
+  \item referring to previous constructors
+  \item having equations
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Referring to previous constructors}
+  
+  \begin{align*}
+    &\data\ \Tty : \Set \\
+    &\ \ \ \ \Ta :\unitty \to \Tty \\
+    &\ \ \ \ \Tb : (t : \Tty) \times \Ta\ \unitval = t \to \Tty
+  \end{align*}
+
+\end{frame}
+
+\begin{frame}{Referring to previous constructors -- iterated dialgebras}
+
+  \begin{align*}
+    &\data\ \specty : \Set \\
+    &\Alg : \specty \to \Cat \\
+    &\Und : (s : \specty) \to \Func{\Alg\ s}{\SET}
+  \end{align*}
+  
+  \begin{align*}
+    &\Alg\ \specnil \ddefeq \SET \\
+    &\Alg\ (\specsnoc\ s\ F) \ddefeq \dialgcat{F}{\Und\ s} \\
+    \\
+    &\Und\ \specnil\ X \ddefeq\ X \\
+    &\Und\ (\specsnoc\ s\ F)\ (X,\theta) \ddefeq X
+  \end{align*}
+
+\end{frame}
+
+\begin{frame}{(Strict) positivity}
+
+  \begin{align*}
+    &\data\ \Tty : \Set\ \where \\
+    &\ \ \ \ \Ta : \Tty \\
+    &\ \ \ \ \Tb : ((\Ta = \Ta) \to \Tty) \to \Tty
+  \end{align*}
+  
+\end{frame}
+
+\begin{frame}{Dependent sorts}
+
+  \begin{align*}
+    &\data\ \ttconty : \Set \\
+    &\data\ \tttyty : \ttconty \to \Set
+  \end{align*}
+  
+  \begin{align*}
+    &\data\ \ttconty\ \where \\
+    &\ \ \ \ \ttnil : \ttconty \\
+    &\ \ \ \ \ttcons{\_}{\_} : (\Gamma : \ttconty) \to \tttyty\ \Gamma \to \ttconty
+  \end{align*}
+
+  \begin{align*}
+    &\data\ \tttyty\ \where \\
+    &\ \ \ \ \ttzero : (\Gamma : \ttconty) \to \tttyty\ \Gamma \\
+    &\ \ \ \ \ttone : (\Gamma : \ttconty) \to \tttyty\ \Gamma \\
+    &\ \ \ \ \vdots \\
+    &\ \ \ \ \ttpi : (\Gamma : \ttconty)\ (A : \tttyty\ \Gamma) \to \tttyty\ (\ttcons{\Gamma}{A}) \to \tttyty\ \Gamma
+  \end{align*}
+
+\end{frame}
+
+\begin{frame}{Dependent sorts}
+
+  \begin{align*}
+    &\data\ \sortsty : \Set \\
+    &\SortCat{\_} : \sortsty \to \Cat \\
+    \\
+    &\data\ \sortsty\ \where \\
+    &\ \ \ \ \sortsnil : \sortsty \\
+    &\ \ \ \ \sortssnoc : (\Ss : \sortsty) \to (R : \Func{\SortCat{\Ss}}{\SET}) \to \sortsty
+  \end{align*}
+
+  with
+  $$
+  \SortCat{\sortsnil} \ddefeq \termcat
+  $$
+
+  and $\SortCat{\sortssnoc\ \Ss\ R}$ has:
+  % 
+  \begin{itemize}
+  \item objects: $(X : | \SortCat{\Ss} |) \times (R X \to \Set))$,
+  \item morphisms $(X,Z) \to (Y,W)$ consist of
+    \begin{itemize}
+    \item a morphism $f : \SortCat{\Ss}(X,Y)$
+    \item a dependent function
+      $g : (x : R X) \to Y\ x \to W\ (R\ f\ x)$.
+    \end{itemize}
+  \end{itemize}
+
+\end{frame}
+
+\begin{frame}{(Strict) positivity}
+  \begin{align*}
+    &\data\ \Aty : \Set \\
+    &\data\ \Bty : (\Aty \to \Aty) \to \Set
+  \end{align*}
+
+  \begin{align*}
+    &\data\ \Aty\ \where \\
+    &\ \ \ \ \ \Aco : \Aty \\
+    \\
+    &\data\ \Bty\ \where \\
+    &\ \ \ \ \ \Bci : B\ (\lambda x \to x)
+  \end{align*}
+\end{frame}
 
 \end{document}
