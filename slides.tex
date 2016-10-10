@@ -62,6 +62,35 @@
 \begin{frame}{Referring to previous constructors}
   
   \begin{align*}
+    &\data\ \List\ (A : \Set) : \Set\ \where \\
+    &\ \ \ \ \listnil : \List\ A \\
+    &\ \ \ \ \listcons : A \to \List\ A \to \List\ A
+  \end{align*}
+
+\end{frame}
+
+\begin{frame}{Referring to previous constructors}
+  
+  \begin{align*}
+    &\data\ \List\ (A : \Set) : \Set\ \where \\
+    &\ \ \ \ \listnil : \unitty \to \List\ A \\
+    &\ \ \ \ \listcons : A \to \List\ A \to \List\ A
+  \end{align*}
+
+\end{frame}
+
+\begin{frame}{Referring to previous constructors}
+  
+  \begin{align*}
+    &\data\ \List\ (A : \Set) : \Set\ \where \\
+    &\ \ \ \ \listnilcons : \unitty + (A \to \List\ A) \to \List\ A \\
+  \end{align*}
+
+\end{frame}
+
+\begin{frame}{Referring to previous constructors}
+  
+  \begin{align*}
     &\data\ \Tty : \Set \\
     &\ \ \ \ \Ta :\unitty \to \Tty \\
     &\ \ \ \ \Tb : (t : \Tty) \times \Ta\ \unitval = t \to \Tty
